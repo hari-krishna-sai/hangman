@@ -1,0 +1,90 @@
+C51 COMPILER V9.60.0.0   HANGMAN_NEW__1_                                                   04/07/2021 09:51:11 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE HANGMAN_NEW__1_
+OBJECT MODULE PLACED IN .\Objects\hangman_new (1).obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE hangman_new (1).c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Li
+                    -stings\hangman_new (1).lst) TABS(2) OBJECT(.\Objects\hangman_new (1).obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"    //Header file with LCD interfacing functions
+   3          #include "serial.c" //C file with UART interfacing functions
+   4          
+   5          
+   6          //Main function
+   7          void main(void)
+   8          {
+   9   1        
+  10   1        //Call initialization functions
+  11   1        code unsigned char display_msg[]="W.Guesses: ";unsigned int i=0;unsigned char d=0;unsigned int p=0;unsign
+             -ed int j=0;
+  12   1        unsigned char x[]= "abcd";
+  13   1        unsigned char z[]= "____";
+  14   1        lcd_init();
+  15   1        uart_init();
+  16   1        
+  17   1        lcd_cmd(0x80);
+  18   1        lcd_write_string(z);
+  19   1        
+  20   1        lcd_cmd(0xC0);
+  21   1        lcd_write_string("display_msg");
+  22   1        
+  23   1        
+  24   1        
+  25   1        
+  26   1        
+  27   1        while(1)
+  28   1        {
+  29   2          d = receive_char();
+  30   2          p++;
+  31   2          i=0;
+  32   2          if(d==x[i])
+  33   2          {
+  34   3            z[i]=x[i];
+  35   3            x[i]="_";
+*** WARNING C260 IN LINE 35 OF hangman_new (1).c: '=': pointer truncation
+  36   3            p--;
+  37   3            j++;
+  38   3            break;
+  39   3          }
+  40   2          else
+  41   2          {}
+  42   2        i++;
+  43   2        }
+  44   1        if (p == 6)
+  45   1              {
+  46   2                  lcd_write_string("You lost");
+  47   2                  
+  48   2              }
+  49   1              else{}
+  50   1              if (j == 5) // length of your word
+  51   1              {
+  52   2                  lcd_write_string("You won");
+C51 COMPILER V9.60.0.0   HANGMAN_NEW__1_                                                   04/07/2021 09:51:11 PAGE 2   
+
+  53   2                  
+  54   2              }
+  55   1        lcd_cmd(0x01);
+  56   1        lcd_cmd(0x80);
+  57   1        lcd_write_string(z);
+  58   1        lcd_cmd(0x80);
+  59   1        lcd_write_string(display_msg);
+  60   1        
+  61   1        
+  62   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    636    ----
+   CONSTANT SIZE    =     53    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      28
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
